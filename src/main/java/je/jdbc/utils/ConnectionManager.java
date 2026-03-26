@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
-public final class ConnetionManager {
+public final class ConnectionManager {
 
     public static final String URL_KEY = "db.url";
     public static final String USER_KEY = "db.user";
@@ -28,7 +28,7 @@ public final class ConnetionManager {
 
         for (int i = 0; i < size; i++) {
             Connection connection = open();
-            var proxyConnetion = (Connection) Proxy.newProxyInstance(ConnetionManager.class.getClassLoader(),
+            var proxyConnetion = (Connection) Proxy.newProxyInstance(ConnectionManager.class.getClassLoader(),
                     new Class[]{Connection.class},
                     (proxy, method, args) ->
                             method.getName().equals("close") ?
@@ -58,7 +58,7 @@ public final class ConnetionManager {
 
     }
 
-    private ConnetionManager() {
+    private ConnectionManager() {
 
     }
 

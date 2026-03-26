@@ -1,15 +1,21 @@
 package je.jdbc;
 
-import je.jdbc.utils.ConnetionManager;
+import je.jdbc.dao.TicketDao;
+import je.jdbc.entity.Ticket;
 
-import java.sql.DriverManager;
+import java.math.BigDecimal;
 import java.sql.SQLException;
 
 public class JdbcRunner {
-
     public static void main(String[] args) throws SQLException {
-        try (var connection = ConnetionManager.get()) {
-            System.out.println(connection.getTransactionIsolation());
-        }
+        TicketDao ticketDao = TicketDao.getInstance();
+        Ticket ticket = new Ticket();
+        ticket.setPassportNo("12312");
+        ticket.setPassengerName("Misha");
+        ticket.setFlightId(6L);
+        ticket.setSeatNo("54B");
+        ticket.setCost(BigDecimal.TEN);
+
+        System.out.println(ticketDao.save(ticket));
     }
 }
